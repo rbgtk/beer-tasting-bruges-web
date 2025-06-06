@@ -1,48 +1,96 @@
 <template>
-  <main class="space-y-12">
-    <!-- Welcome Section -->
-    <section class="py-12 text-center">
-      <h1 class="text-4xl font-bold mb-4">Welcome to Our Experience</h1>
-      <p class="max-w-xl mx-auto text-gray-700">Discover the finest selection of beers, tailored just for you.</p>
-    </section>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Column 1 -->
+    <div>
+      <!-- Welcome Section -->
+      <section class="p-4 mb-8">
+        <h1 class="text-4xl fond-bold mb-4">Welcome</h1>
+        
+        <hr class="h-px mb-4 bg-gray-400 border-0">
+        
+        <div class="text-gray-700">
+          <p class="mb-2">… to our Bruges’ best beer tasting experience! 
+          We offer <b>two public</b> and a <b>private</b> beer tasting for you to enjoy:</p>
+          <ul class="list-disc list-inside px-4 mb-2">
+            <li>The first tasting is on Mondays and Fridays at 5:30 PM in the charming, 
+              picturesque setting of Resto Mojo and features a side of homemade tapas of local cheeses and meats.</li>
+            <li>If you’re more of a night owl, and like to kick off the evening with our tasting, 
+              join us every day except Thursday at 8 PM in the iconic Bauhaus for another exciting session.</li>
+          </ul>
+          <p class="mb-2">Both tastings feature six distinct Belgian beers, 
+          each with its own unique flavor profile and story, all expertly explained by our knowledgeable guide.</p>
+        </div>
+      </section>
 
-    <!-- Reservations Section -->
-    <section class="max-w-4xl mx-auto py-12 text-center">
-      <h2 class="text-3xl font-semibold mb-4">Make a Reservation</h2>
-      <p class="text-gray-600 mb-4">Reserve your spot for an unforgettable tasting experience.</p>
-      <button class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700">Reserve Now</button>
-    </section>
+      <section class="p-4 mb-8">
+        <h1 class="text-2xl font-bold mb-4">Reservations</h1>
 
-    <!-- Tailor Your Experience Section -->
-    <section class="py-12">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-semibold mb-4">Tailor Your Experience</h2>
-        <p class="text-gray-700 mb-4">Customize your tasting session to your unique preferences.</p>
-        <button class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700">Start Now</button>
-      </div>
-    </section>
+        <hr class="h-px mb-4 bg-gray-400 border-0">
+        
+        <div class="text-gray-700">
+          <p class="mb-2">Join us for a public beer tasting and discover a world of flavors!</p>
+          <p class="mb-2">Whether you’re coming solo or with friends, this is the perfect chance to explore new beers and meet fellow enthusiasts. 
+            Simply fill out the <router-link to="/book-now" class="underline">booking form</router-link> to reserve your spot and get ready for a great time! 
+            The price for a beer tasting at Resto Mojo is <b>40 euros per person</b>, whereas the beer tasting at the Bauhaus is <b>21 euros per person</b>.
+          </p>
+        </div>
+      </section>
 
-    <!-- Locations Section -->
-    <section class="max-w-4xl mx-auto py-12 text-center">
-      <h2 class="text-3xl font-semibold mb-4">Our Locations</h2>
-      <p class="text-gray-600 mb-4">Find us at prime spots across Bruges.</p>
-      <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <li class="p-4 border rounded shadow-sm">Main Brewery</li>
-        <li class="p-4 border rounded shadow-sm">Canal-side Tasting Room</li>
-        <li class="p-4 border rounded shadow-sm">Historic Cellar</li>
-      </ul>
-    </section>
+      <section class="p-4 mb-8">
+        <h1 class="text-2xl font-bold mb-4">Tailor your experience</h1>
 
-    <!-- Reviews Section -->
-    <section class="py-12 text-center">
-      <h2 class="text-3xl font-semibold mb-4">What Our Guests Say</h2>
-      <blockquote class="italic text-gray-700 max-w-xl mx-auto mb-4">“An unforgettable experience! The staff is wonderful and the beers are top notch.”</blockquote>
-      <p class="text-gray-600">— Emily R.</p>
-    </section>
-  </main>
+        <hr class="h-px mb-4 bg-gray-400 border-0">
+        
+        <div class="text-gray-700">
+          <p class="mb-2">If you’re interested in a custom or private tasting for a special occasion, such as a stag party or corporate event, 
+            feel free to reach out through our <router-link to="/contact" class="underline">contact form</router-link>. 
+            <b>Pricing for private tastings is custom</b> and depends on your specific request.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Column 2 -->
+    <div>
+      <!-- Locations Section -->
+      <section class="p-4 mb-8">
+        <h1 class="text-2xl font-bold mb-4">Our Locations</h1>
+
+        <hr class="h-px mb-4 bg-gray-400 border-0">
+        
+        <div class="text-gray-700">
+          <p class="mb-2">Find us at prime spots across Bruges. As we serve our tastings at different times and different locations, 
+            make sure to choose whichever bests fits your style:
+          </p>
+        </div>
+        <LocationCard v-for="location in locations" :key="location.id" :location="location" class="mb-2"/>
+      </section>
+    </div>
+  </div>
+  
+  <!-- Placeholder for Trustindex reviews -->
+  <div class="text-center">
+    <h2 class="text-2xl font-bold mb-4">What Our Customers Say</h2>
+    <div id="trustindex-widget" data-widget-id="785f04447a0f7010b046ba5fd6e"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
-// Add logic here if needed
-</script>
+import { ref, onMounted } from 'vue'
+import { fetchLocations } from '@/services/locationService'
+import type { Location } from '@/models/location'
+import LocationCard from '@/components/guest/LocationCard.vue'
 
+const locations = ref<Location[]>([])
+
+onMounted(async () => {
+  locations.value = await fetchLocations()
+
+  const div = document.getElementById("trustindex-widget")
+  let script = document.createElement("script")
+  script.src = "https://cdn.trustindex.io/loader.js?785f04447a0f7010b046ba5fd6e"
+  script.defer = true
+  script.async = true  
+  div.appendChild(script)
+})
+</script>
