@@ -8,37 +8,37 @@
           <router-link
             to="/dashboard"
             class="hover:bg-gray-700 rounded px-3 py-2"
-            active-class="bg-gray-700"
+            exact-active-class="bg-gray-700"
           >
             Dashboard
           </router-link>
           <router-link
             to="/dashboard/locations"
             class="hover:bg-gray-700 rounded px-3 py-2"
-            active-class="bg-gray-700"
+            exact-active-class="bg-gray-700"
           >
             Locations
           </router-link>
           <router-link
             to="/dashboard/events/onetime"
             class="hover:bg-gray-700 rounded px-3 py-2"
-            active-class="bg-gray-700"
+            exact-active-class="bg-gray-700"
           >
             OneTime Events
           </router-link>
           <router-link
             to="/dashboard/events/recurring"
             class="hover:bg-gray-700 rounded px-3 py-2"
-            active-class="bg-gray-700"
+            exact-active-class="bg-gray-700"
           >
             Recurring Events
           </router-link>
           <router-link
-            to="/dashboard/exceptions"
+            to="/dashboard/unavailabilities"
             class="hover:bg-gray-700 rounded px-3 py-2"
-            active-class="bg-gray-700"
+            exact-active-class="bg-gray-700"
           >
-            Exceptions
+            Unavailabilities
           </router-link>
           <!-- Add more admin links as needed -->
         </nav>
