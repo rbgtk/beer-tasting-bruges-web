@@ -3,6 +3,8 @@
     <!-- Header -->
     <header class="bg-gray-800 text-white p-4">
       <h1 class="text-xl font-semibold">Beer Tasting Bruges</h1>
+
+      <Navigation />
     </header>
 
     <!-- Main Content -->
@@ -17,3 +19,6 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import Navigation from '@/components/guest/Navigation.vue'
+</script>
