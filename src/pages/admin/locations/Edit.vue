@@ -14,7 +14,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { Location } from '@/models/location'
-import { fetchLocation, updateLocation } from '@/services/locationApi'
+import { fetchLocation, updateLocation } from '@/services/locationService'
 
 import LocationForm from '@/components/admin/locations/Form.vue'
 
@@ -24,15 +24,7 @@ const router = useRouter()
 const location = ref<Location>()
 
 async function handleUpdate(data) {
-  const updatedLocation = {
-    id: route.params.id,
-    name: data.name,
-    address: data.address,
-    description: data.description,
-    mapUrl: data.mapUrl
-  }
-
-  await updateLocation(updatedLocation)
+  await updateLocation({ id: route.params.id, ...data })
   router.push('/dashboard/locations')
 }
 

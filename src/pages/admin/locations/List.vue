@@ -15,8 +15,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { fetchLocations, deleteLocation } from '@/services/locationApi'
+import { fetchLocations, deleteLocation } from '@/services/locationService'
 import LocationCard from '@/components/admin/locations/Card.vue'
+import type { Location } from '@/models/location'
 
 const locations = ref<Location[]>([])
 

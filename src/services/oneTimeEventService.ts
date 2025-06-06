@@ -13,6 +13,11 @@ export async function fetchOneTimeEvents(): Promise<OneTimeEvent[]> {
   return response.data
 }
 
+export async function fetchOneTimeEvent(id: number): Promise<OneTimeEvent> {
+  const response = await api.get(`/api/events/onetime/${id}`)
+  return response.data
+}
+
 export async function updateOneTimeEvent(
   oneTimeEvent: OneTimeEvent
 ): Promise<OneTimeEvent> {

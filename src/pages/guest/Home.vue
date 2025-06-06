@@ -63,7 +63,8 @@
             make sure to choose whichever bests fits your style:
           </p>
         </div>
-        <LocationCard v-for="location in locations" :key="location.id" :location="location" class="mb-2"/>
+
+        <LocationCard v-for="location in locations" :key="location.id" :location="location" class="mb-4"/>
       </section>
     </div>
   </div>
