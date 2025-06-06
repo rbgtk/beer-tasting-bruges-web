@@ -48,14 +48,8 @@
 import { ref, watchEffect } from 'vue'
 
 const props = defineProps<{
-  location?: {
-    id?: string
-    name: string
-    address: string
-    description: string
-    mapUrl: string
-  }
-  onSubmit: (form: { name: string; address: string; description: string; mapUrl: string }) => void
+  location?: Location
+  onSubmit: (data: {}) => void
   submitLabel?: string
 }>()
 
