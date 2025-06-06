@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
+import type { Location } from '@/models/location'
 
 const props = defineProps<{
   location?: Location
