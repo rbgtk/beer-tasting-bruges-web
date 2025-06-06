@@ -1,6 +1,6 @@
 import type Location from '@/models/location'
 
-export type ScheduleException = {
+export type Unavailability = {
   id: number
   date: Date
   location?: Location
