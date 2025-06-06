@@ -8,8 +8,10 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow">
-      <router-view />
+    <main class="flex-grow"> 
+      <div class="container mx-auto px-4 py-8">
+        <router-view />
+      </div>
     </main>
 
     <!-- Footer -->
