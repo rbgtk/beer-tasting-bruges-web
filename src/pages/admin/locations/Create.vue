@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import LocationForm from '@/components/admin/LocationForm.vue'
+import LocationForm from '@/components/admin/locations/Form.vue'
 import api from '@/axios'
 import { useRouter } from 'vue-router'
 
