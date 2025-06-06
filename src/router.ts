@@ -89,6 +89,21 @@ const routes = [
         name: 'RecurringEventEdit',
         component: () => import('@/pages/admin/events/recurring/Edit.vue'),
       },
+      {
+        path: 'events/exceptions',
+        name: 'EventExceptionsList',
+        component: () => import('@/pages/admin/events/exceptions/List.vue'),
+      },
+      {
+        path: 'events/exceptions/create',
+        name: 'EventExceptionsCreate',
+        component: () => import('@/pages/admin/events/exceptions/Create.vue'),
+      },
+      {
+        path: 'events/exceptions/edit/:id',
+        name: 'EventExceptionsEdit',
+        component: () => import('@/pages/admin/events/exceptions/Edit.vue'),
+      },
     ],
     meta: { requiresAuth: true },
   },
