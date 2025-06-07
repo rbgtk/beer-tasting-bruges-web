@@ -8,7 +8,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow"> 
+    <main class="flex-grow">
       <div class="container mx-auto px-4 py-8">
         <router-view />
       </div>
@@ -22,5 +22,5 @@
 </template>
 
 <script setup lang="ts">
-import Navigation from '@/components/guest/Navigation.vue'
+import Navigation from '@/components/guest/Navigation.vue';
 </script>

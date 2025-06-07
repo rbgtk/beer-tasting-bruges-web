@@ -22,43 +22,37 @@
           class="mt-1 block w-full border-gray-300 rounded shadow-sm focus:border-gray-600 focus:ring-gray-600"
         />
       </div>
-      <button
-        type="submit"
-        class="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-700"
-      >
-        Login
-      </button>
+      <button type="submit" class="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-700">Login</button>
       <p v-if="error" class="text-red-600 text-sm">{{ error }}</p>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import api from '@/axios'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue';
+import api from '@/axios';
+import { useRouter } from 'vue-router';
 
-const email = ref('')
-const password = ref('')
+const email = ref('');
+const password = ref('');
 
-const error = ref<string | null>(null)
-const router = useRouter()
+const error = ref<string | null>(null);
+const router = useRouter();
 
 const handleLogin = async () => {
-  error.value = null
+  error.value = null;
   try {
     await api.post('/api/auth/login', {
       email: email.value,
-      password: password.value
-    })
-    router.push('/dashboard')
+      password: password.value,
+    });
+    router.push('/dashboard');
   } catch (err: any) {
     if (err.response && err.response.status === 401) {
-      error.value = 'Invalid username or password.'
+      error.value = 'Invalid username or password.';
     } else {
-      error.value = 'An unexpected error occurred.'
+      error.value = 'An unexpected error occurred.';
     }
   }
-}
+};
 </script>
-

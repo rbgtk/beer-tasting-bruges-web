@@ -5,11 +5,7 @@
       <div class="p-4">
         <h1 class="text-xl font-semibold mb-6">Admin Dashboard</h1>
         <nav class="flex flex-col gap-2">
-          <router-link
-            to="/dashboard"
-            class="hover:bg-gray-700 rounded px-3 py-2"
-            exact-active-class="bg-gray-700"
-          >
+          <router-link to="/dashboard" class="hover:bg-gray-700 rounded px-3 py-2" exact-active-class="bg-gray-700">
             Dashboard
           </router-link>
           <router-link
@@ -46,12 +42,7 @@
 
       <!-- Logout button at the bottom -->
       <div class="p-4">
-        <button
-          @click="handleLogout"
-          class="bg-red-500 hover:bg-red-600 w-full py-2 rounded"
-        >
-          Logout
-        </button>
+        <button @click="handleLogout" class="bg-red-500 hover:bg-red-600 w-full py-2 rounded">Logout</button>
       </div>
     </aside>
 
@@ -63,19 +54,18 @@
 </template>
 
 <script setup lang="ts">
-import api from '@/axios'
-import { useRouter } from 'vue-router'
+import api from '@/axios';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 
 const handleLogout = async () => {
   try {
-    await api.post('/api/auth/logout')
-    router.push('/login')
+    await api.post('/api/auth/logout');
+    router.push('/login');
   } catch (error) {
-    console.error('Logout failed:', error)
+    console.error('Logout failed:', error);
     // Optionally show a toast or alert
   }
-}
+};
 </script>
-

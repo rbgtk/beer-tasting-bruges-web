@@ -6,4 +6,3 @@
     <router-link to="/reservations">Reservations</router-link>
   </nav>
 </template>
-

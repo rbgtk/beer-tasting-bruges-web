@@ -1,3 +1,1 @@
-<template>
-  This is a placeholder for now
-</template>
+<template>This is a placeholder for now</template>

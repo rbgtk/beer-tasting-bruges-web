@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import HeaderView from '@/components/Header.vue'
-import FooterView from '@/components/Footer.vue'
+import HeaderView from '@/components/Header.vue';
+import FooterView from '@/components/Footer.vue';
 </script>
 
 <style scoped>
