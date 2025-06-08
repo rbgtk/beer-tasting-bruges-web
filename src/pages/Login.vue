@@ -28,31 +28,31 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import api from '@/axios';
-import { useRouter } from 'vue-router';
+<script setup>
+import { ref } from 'vue'
+import api from '@/axios'
+import { useRouter } from 'vue-router'
 
-const email = ref('');
-const password = ref('');
+const email = ref('')
+const password = ref('')
 
-const error = ref<string | null>(null);
-const router = useRouter();
+const error = ref(null)
+const router = useRouter()
 
 const handleLogin = async () => {
-  error.value = null;
+  error.value = null
   try {
     await api.post('/api/auth/login', {
       email: email.value,
       password: password.value,
-    });
-    router.push('/dashboard');
-  } catch (err: any) {
-    if (err.response && err.response.status === 401) {
-      error.value = 'Invalid username or password.';
+    })
+    router.push('/dashboard')
+  } catch (loginError) {
+    if (loginError.response && loginError.response.status === 401) {
+      error.value = 'Invalid username or password.'
     } else {
-      error.value = 'An unexpected error occurred.';
+      error.value = 'An unexpected error occurred.'
     }
   }
-};
+}
 </script>

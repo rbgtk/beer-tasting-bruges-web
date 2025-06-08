@@ -5,7 +5,6 @@
         <!-- Left column (date picker) -->
         <VueDatePicker
           v-model="form.date"
-          :six-weeks="append"
           time-picker-inline
           inline
           is-24
@@ -63,39 +62,45 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watchEffect } from 'vue';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import type { OneTimeEvent } from '@/models/oneTimeEvent';
-import type { Location } from '@/models/location';
-import { fetchLocations } from '@/services/locationService';
+import { ref, onMounted, watchEffect } from 'vue'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import type { OneTimeEvent } from '@/models/oneTimeEvent'
+import type { Location } from '@/models/location'
+import { fetchLocations } from '@/services/locationService'
 
 const props = defineProps<{
-  oneTimeEvent?: OneTimeEvent;
-  onSubmit: (data: {}) => void;
-  submitLabel?: string;
-}>();
+  oneTimeEvent?: OneTimeEvent
+  onSubmit: (data: {}) => void
+  submitLabel?: string
+}>()
 
-const form = ref({
+const form = ref<{
+  name: String
+  description: String
+  date: Date
+  locationId: number
+  price: number
+}>({
   name: '',
   description: '',
   date: new Date(),
-  locationId: '',
+  locationId: 0,
   price: 10,
-});
+})
 
-const locations = ref<Location[]>([]);
+const locations = ref<Location[]>([])
 
 function handleSubmit() {
-  props.onSubmit(form.value);
+  props.onSubmit(form.value)
 }
 
 watchEffect(() => {
   if (props.oneTimeEvent) {
-    form.value = { ...props.oneTimeEvent };
+    form.value = { locationId: props.oneTimeEvent.location.id, ...props.oneTimeEvent }
   }
-});
+})
 
 onMounted(async () => {
-  locations.value = await fetchLocations();
-});
+  locations.value = await fetchLocations()
+})
 </script>

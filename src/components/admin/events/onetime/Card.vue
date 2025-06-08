@@ -37,9 +37,9 @@
 </template>
 
 <script setup lang="ts">
-import type { OneTimeEvent } from '@/models/oneTimeEvent';
+import type { OneTimeEvent } from '@/models/oneTimeEvent'
 
 defineProps<{
-  oneTimeEvent: OneTimeEvent;
-}>();
+  oneTimeEvent: OneTimeEvent
+}>()
 </script>

@@ -54,18 +54,17 @@
 </template>
 
 <script setup lang="ts">
-import api from '@/axios';
-import { useRouter } from 'vue-router';
+import api from '@/axios'
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 
 const handleLogout = async () => {
   try {
-    await api.post('/api/auth/logout');
-    router.push('/login');
+    await api.post('/api/auth/logout')
+    router.push('/login')
   } catch (error) {
-    console.error('Logout failed:', error);
-    // Optionally show a toast or alert
+    console.error('Logout failed:', error)
   }
-};
+}
 </script>
