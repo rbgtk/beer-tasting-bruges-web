@@ -43,6 +43,7 @@ const routes = [
   {
     path: '/dashboard',
     component: DashboardLayout,
+    meta: { requiresAdmin: true },
     children: [
       {
         path: '',
@@ -65,34 +66,19 @@ const routes = [
         component: () => import('@/pages/admin/locations/Edit.vue'),
       },
       {
-        path: 'events/onetime',
-        name: 'OneTimeEventsList',
-        component: () => import('@/pages/admin/events/onetime/List.vue'),
+        path: 'events',
+        name: 'EventsList',
+        component: () => import('@/pages/admin/events/List.vue'),
       },
       {
-        path: 'events/onetime/create',
-        name: 'OneTimeEventCreate',
-        component: () => import('@/pages/admin/events/onetime/Create.vue'),
+        path: 'events/create',
+        name: 'EventCreate',
+        component: () => import('@/pages/admin/events/Create.vue'),
       },
       {
-        path: 'events/onetime/edit/:id',
-        name: 'OneTimeEventEdit',
-        component: () => import('@/pages/admin/events/onetime/Edit.vue'),
-      },
-      {
-        path: 'events/recurring',
-        name: 'RecurringEventsList',
-        component: () => import('@/pages/admin/events/recurring/List.vue'),
-      },
-      {
-        path: 'events/recurring/create',
-        name: 'RecurringEventCreate',
-        component: () => import('@/pages/admin/events/recurring/Create.vue'),
-      },
-      {
-        path: 'events/recurring/edit/:id',
-        name: 'RecurringEventEdit',
-        component: () => import('@/pages/admin/events/recurring/Edit.vue'),
+        path: 'events/edit/:id',
+        name: 'EventEdit',
+        component: () => import('@/pages/admin/events/Edit.vue'),
       },
       {
         path: 'unavailabilities',
@@ -115,7 +101,6 @@ const routes = [
         component: () => import('@/pages/admin/NotFound.vue'),
       },
     ],
-    meta: { requiresAuth: true },
   },
 ]
 
@@ -124,12 +109,23 @@ const router = createRouter({
   routes: routes,
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    api
-      .get('/api/auth/me')
-      .then(() => next())
-      .catch(() => next('/login'))
+router.beforeEach(async (to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAdmin)) {
+    const response = await api.get('/api/auth/role')
+
+    if (response.data.role !== 'ADMIN') {
+      next('/login')
+    } else {
+      next()
+    }
+  } else if (to.matched.some((record) => record.meta.requiresAuth)) {
+    const response = await api.get('/api/auth/role')
+
+    if (response.data.role) {
+      next('/login')
+    } else {
+      next()
+    }
   } else {
     next()
   }

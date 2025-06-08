@@ -11,6 +11,11 @@
     </div>
 
     <div>
+      <label for="summary" class="block text-sm font-medium text-gray-700">Summary</label>
+      <input id="summary" v-model="form.summary" required class="mt-1 block w-full border rounded shadow-sm p-2" />
+    </div>
+
+    <div>
       <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
       <textarea
         id="description"
@@ -30,30 +35,26 @@
   </form>
 </template>
 
-<script setup lang="ts">
-import { ref, watchEffect } from 'vue';
-import type { Location } from '@/models/location';
+<script setup>
+import { ref, watchEffect } from 'vue'
 
-const props = defineProps<{
-  location?: Location;
-  onSubmit: (data: {}) => void;
-  submitLabel?: string;
-}>();
+const props = defineProps(['location', 'onSubmit', 'submitLabel'])
 
 const form = ref({
   name: '',
   address: '',
+  summary: '',
   description: '',
   mapUrl: '',
-});
+})
 
 watchEffect(() => {
   if (props.location) {
-    form.value = { ...props.location };
+    form.value = { ...props.location }
   }
-});
+})
 
-const handleSubmit = () => {
-  props.onSubmit(form.value);
-};
+function handleSubmit() {
+  props.onSubmit(form.value)
+}
 </script>

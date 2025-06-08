@@ -7,8 +7,8 @@
         {{ location.address }}
       </p>
       <p class="text-sm text-gray-600">
-        <span class="font-semibold">Description:</span>
-        {{ location.description }}
+        <span class="font-semibold">Summary:</span>
+        {{ location.summary }}
       </p>
     </div>
     <div class="mt-4 flex gap-2">
@@ -29,9 +29,5 @@
 </template>
 
 <script setup lang="ts">
-import type { Location } from '@/models/location';
-
-defineProps<{
-  location: Location;
-}>();
+defineProps(['location'])
 </script>

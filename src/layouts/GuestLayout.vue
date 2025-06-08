@@ -1,9 +1,8 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-gray-800 text-white p-4">
+    <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
       <h1 class="text-xl font-semibold">Beer Tasting Bruges</h1>
-
       <Navigation />
     </header>
 
@@ -22,5 +21,5 @@
 </template>
 
 <script setup lang="ts">
-import Navigation from '@/components/guest/Navigation.vue';
+import Navigation from '@/components/guest/Navigation.vue'
 </script>

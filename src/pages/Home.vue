@@ -4,7 +4,7 @@
     <div>
       <!-- Welcome Section -->
       <section class="p-4 mb-8">
-        <h1 class="text-4xl fond-bold mb-4">Welcome</h1>
+        <h1 class="text-2xl font-bold mb-4">Welcome</h1>
 
         <hr class="h-px mb-4 bg-gray-400 border-0" />
 
@@ -47,12 +47,15 @@
             to reserve your spot and get ready for a great time! The price for a beer tasting at Resto Mojo is
             <b>40 euros per person</b>
             , whereas the beer tasting at the Bauhaus is
-            <b>21 euros per person</b>
+            <b>31 euros per person</b>
             .
           </p>
         </div>
       </section>
+    </div>
 
+    <!-- Column 2 -->
+    <div>
       <section class="p-4 mb-8">
         <h1 class="text-2xl font-bold mb-4">Tailor your experience</h1>
 
@@ -69,11 +72,7 @@
           </p>
         </div>
       </section>
-    </div>
 
-    <!-- Column 2 -->
-    <div>
-      <!-- Locations Section -->
       <section class="p-4 mb-8">
         <h1 class="text-2xl font-bold mb-4">Our Locations</h1>
 
@@ -99,21 +98,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { fetchLocations } from '@/services/locationService';
-import type { Location } from '@/models/location';
-import LocationCard from '@/components/guest/LocationCard.vue';
+import { ref, onMounted } from 'vue'
+import { fetchLocations } from '@/services/locationService'
+import type { Location } from '@/models/location'
+import LocationCard from '@/components/guest/LocationCard.vue'
 
-const locations = ref<Location[]>([]);
+const locations = ref<Location[]>([])
 
 onMounted(async () => {
-  locations.value = await fetchLocations();
+  locations.value = await fetchLocations()
 
-  const div = document.getElementById('trustindex-widget');
-  let script = document.createElement('script');
-  script.src = 'https://cdn.trustindex.io/loader.js?785f04447a0f7010b046ba5fd6e';
-  script.defer = true;
-  script.async = true;
-  div.appendChild(script);
-});
+  const div = document.getElementById('trustindex-widget')
+  let script = document.createElement('script')
+  script.src = 'https://cdn.trustindex.io/loader.js?785f04447a0f7010b046ba5fd6e'
+  script.defer = true
+  script.async = true
+  div.appendChild(script)
+})
 </script>
