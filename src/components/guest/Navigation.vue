@@ -40,5 +40,24 @@
     >
       Contact
     </router-link>
+    <router-link
+      v-if="isAdmin"
+      to="/dashboard"
+      exact
+      exact-active-class="bg-gray-700"
+      class="px-3 py-2 rounded hover:bg-gray-600 transition-colors"
+    >
+      Dashboard
+    </router-link>
   </nav>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
+
+const authStore = useAuthStore()
+const isAdmin = computed(() => {
+  return authStore.userRole === 'ADMIN'
+})
+</script>

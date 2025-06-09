@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore.js'
 import GuestLayout from '@/layouts/GuestLayout.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
-import api from '@/axios'
 
 const routes = [
   {
@@ -54,7 +53,7 @@ const routes = [
   {
     path: '/dashboard',
     component: DashboardLayout,
-    meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true, roles: ['ADMIN'] },
     children: [
       {
         path: '',
@@ -135,26 +134,33 @@ const router = createRouter({
   routes: routes,
 })
 
-const authStore = useAuthStore()
-
 router.beforeEach(async (to, from, next) => {
-  // Fetch user data if it doesn't exist
-  if (!authStore.user && to.meta.requiresAuth) {
-    try {
-      await authStore.fetchUser()
-    } catch (error) {
-      console.error('Session invalid or expired, redirecting to login.')
-      return next('/login')
+  const authStore = useAuthStore()
+
+  // 🔹 If the route requires authentication
+  if (to.meta.requiresAuth) {
+    // Ensure backend session is valid
+    if (!authStore.user) {
+      try {
+        await authStore.fetchUser()
+      } catch (error) {
+        console.warn('Session invalid or expired, redirecting to login.')
+        return next('/login')
+      }
+    }
+
+    // 🔹 If the route requires specific roles
+    if (to.meta.roles && to.meta.roles.length > 0) {
+      const userRole = authStore.user?.role
+      if (!to.meta.roles.includes(userRole)) {
+        console.warn('User role does not have access to this page.')
+        return next('/forbidden') // or wherever you handle "Access Denied"
+      }
     }
   }
 
-  if (to.meta.requiresAdmin && !authStore.isAdmin) {
-    return next('/login')
-  } else if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    return next('/login')
-  } else {
-    next()
-  }
+  // Otherwise, proceed!
+  next()
 })
 
 /*router.beforeEach(async (to, from, next) => {

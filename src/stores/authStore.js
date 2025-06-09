@@ -5,9 +5,8 @@ import { login as apiLogin, logout as apiLogout, fetchUser as apiFetchUser } fro
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
 
-  const isAdmin = computed(() => user.value.role === 'ADMIN')
   const isAuthenticated = computed(() => !!user.value)
-  const userRole = computed(() => user.value.role || null)
+  const userRole = computed(() => user.value?.role || null)
 
   async function login(credentials) {
     const userData = await apiLogin(credentials)
