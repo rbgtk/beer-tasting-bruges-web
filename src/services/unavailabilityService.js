@@ -10,8 +10,13 @@ export async function fetchUnavailabilities() {
   return response.data
 }
 
+export async function fetchUnavailability(id) {
+  const response = await api.get(`/api/unavailabilities/${id}`)
+  return response.data
+}
+
 export async function updateUnavailability(unavailability) {
-  const response = await api.put(`/api/exeptions/${unavailability.id}`, unavailability)
+  const response = await api.put(`/api/unavailabilities/${unavailability.id}`, unavailability)
   return response.data
 }
 
