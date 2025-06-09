@@ -9,6 +9,14 @@
       Home
     </router-link>
     <router-link
+      to="/booking"
+      exact
+      exact-active-class="bg-gray-700"
+      class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500 transition"
+    >
+      Book Now
+    </router-link>
+    <router-link
       to="/about"
       exact
       exact-active-class="bg-gray-700"
@@ -25,12 +33,12 @@
       Articles
     </router-link>
     <router-link
-      to="/reservations"
+      to="/contact"
       exact
       exact-active-class="bg-gray-700"
       class="px-3 py-2 rounded hover:bg-gray-600 transition-colors"
     >
-      Reservations
+      Contact
     </router-link>
   </nav>
 </template>
