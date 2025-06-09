@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { fetchEvent, updateEvent } from '@/services/eventService'
@@ -23,6 +23,6 @@ async function handleUpdate(data) {
 }
 
 onMounted(async () => {
-  event.value = await fetchEvent(route.params.id as number)
+  event.value = await fetchEvent(route.params.id)
 })
 </script>
