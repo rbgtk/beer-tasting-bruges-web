@@ -1,4 +1,3 @@
-<!-- Navigation.vue -->
 <template>
   <nav class="space-x-2">
     <router-link
