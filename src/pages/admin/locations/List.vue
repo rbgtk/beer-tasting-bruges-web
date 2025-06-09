@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { fetchLocations, deleteLocation } from '@/services/locationService'
 import LocationCard from '@/components/admin/locations/Card.vue'

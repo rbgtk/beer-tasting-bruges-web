@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { fetchLocation, updateLocation } from '@/services/locationService'
@@ -23,6 +23,6 @@ async function handleUpdate(data) {
 }
 
 onMounted(async () => {
-  location.value = await fetchLocation(route.params.id as number)
+  location.value = await fetchLocation(route.params.id)
 })
 </script>
