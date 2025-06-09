@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center w-full" @mouseenter="pauseAutoScroll" @mouseleave="resumeAutoScroll">
     <button
-      v-if="navigation"
+      v-if="showNavigation"
       @click.stop="prev"
       class="bg-white bg-opacity-70 hover:bg-opacity-100 text-gray-700 hover:text-gray-900 rounded-full p-2 shadow transition"
     >
@@ -22,7 +22,7 @@
     </div>
 
     <button
-      v-if="navigation"
+      v-if="showNavigation"
       @click.stop="next"
       class="bg-white bg-opacity-70 hover:bg-opacity-100 text-gray-700 hover:text-gray-900 rounded-full p-2 shadow transition"
     >
@@ -56,18 +56,22 @@ const next = () => {
 }
 
 // Start auto-scroll
-const startAutoScroll = () => {
+function startAutoScroll() {
   if (props.autoScroll) {
     intervalId = setInterval(next, props.autoScrollInterval)
   }
 }
 
-const pauseAutoScroll = () => {
+function pauseAutoScroll() {
   if (intervalId) clearInterval(intervalId)
 }
 
-const resumeAutoScroll = () => {
+function resumeAutoScroll() {
   startAutoScroll()
+}
+
+function showNavigation() {
+  return props.navigation && props.items.length > 1
 }
 
 onMounted(() => {
