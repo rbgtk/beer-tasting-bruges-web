@@ -81,11 +81,18 @@
         <div class="text-gray-700">
           <p class="mb-2">
             Find us at prime spots across Bruges. As we serve our tastings at different times and different locations,
-            make sure to choose whichever bests fits your style:
+            make sure to choose whichever bests fits your style.
           </p>
         </div>
 
-        <LocationCard v-for="location in locations" :key="location.id" :location="location" class="mb-4" />
+        <Carousel
+          v-if="locations.length > 0"
+          :items="locations"
+          :cardComponent="LocationCard"
+          :navigation="false"
+          :autoScroll="true"
+          :autoScrollInterval="5000"
+        />
       </section>
     </div>
   </div>
@@ -97,13 +104,13 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { fetchLocations } from '@/services/locationService'
-import type { Location } from '@/models/location'
+import Carousel from '@/components/Carousel.vue'
 import LocationCard from '@/components/guest/LocationCard.vue'
 
-const locations = ref<Location[]>([])
+const locations = ref([])
 
 onMounted(async () => {
   locations.value = await fetchLocations()

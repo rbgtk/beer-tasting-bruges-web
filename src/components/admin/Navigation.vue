@@ -16,5 +16,8 @@
     >
       Unavailabilities
     </router-link>
+    <router-link to="/" class="hover:bg-gray-700 rounded px-3 py-2" exact-active-class="bg-gray-700">
+      View Site
+    </router-link>
   </nav>
 </template>

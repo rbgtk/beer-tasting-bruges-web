@@ -7,10 +7,6 @@
         {{ event.location.name }}
       </p>
       <p class="text-sm text-gray-600">
-        <span class="font-semibold">Price:</span>
-        {{ event.price }} EUR
-      </p>
-      <p class="text-sm text-gray-600">
         <span class="font-semibold">Description:</span>
         {{ event.description }}
       </p>
@@ -19,13 +15,19 @@
           <span class="font-semibold">Schedules:</span>
         </p>
 
-        <ul>
-          <li v-for="schedule in event.schedules" :key="schedule.id">
-            <span v-if="schedule.type === 'ONE_TIME'">{{ schedule.date }}</span>
-            <span>Every {{ schedule.weekday }} at {{ schedule.time }}</span>
+        <ul class="px-4">
+          <li v-for="schedule in event.schedules" :key="schedule.id" class="list-disc text-sm">
+            <span v-if="schedule.type === 'ONE_TIME'">
+              On {{ formatDate(schedule.date) }} at {{ formatTime(schedule.date) }}
+            </span>
+            <span v-else-if="schedule.type === 'RECURRING'">Every {{ schedule.weekday }} at {{ schedule.time }}</span>
           </li>
         </ul>
       </div>
+      <p class="text-sm text-gray-600">
+        <span class="font-semibold">Price:</span>
+        {{ event.price }} EUR
+      </p>
     </div>
 
     <div class="mt-4 flex gap-2">
@@ -42,6 +44,22 @@
   </div>
 </template>
 
-<script setup lang="ts">
-defineProps(['event'])
+<script setup>
+defineProps({
+  event: { type: Object, required: true },
+})
+
+function formatDate(dateString) {
+  const date = new Date(dateString)
+  return date.toLocaleDateString()
+}
+
+function formatTime(dateString) {
+  const date = new Date(dateString)
+  return date.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false, // 24-hour format
+  })
+}
 </script>
