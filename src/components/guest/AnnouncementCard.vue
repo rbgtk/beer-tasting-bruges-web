@@ -18,6 +18,6 @@ const props = defineProps({
 })
 
 const renderedMarkdown = computed(() => {
-  return md.render(props.item.content)
+  return md.render(props.item.message)
 })
 </script>
