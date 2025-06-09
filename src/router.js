@@ -96,6 +96,21 @@ const routes = [
         component: () => import('@/pages/admin/unavailabilities/Edit.vue'),
       },
       {
+        path: 'announcements',
+        name: 'AnnouncementsList',
+        component: () => import('@/pages/admin/announcements/List.vue'),
+      },
+      {
+        path: 'announcements/create',
+        name: 'AnnouncementCreate',
+        component: () => import('@/pages/admin/announcements/Create.vue'),
+      },
+      {
+        path: 'announcements/edit/:id',
+        name: 'AnnouncementEdit',
+        component: () => import('@/pages/admin/announcements/Edit.vue'),
+      },
+      {
         path: '/:pathMatch(.*)*',
         name: 'NotFoundAdmin',
         component: () => import('@/pages/admin/NotFound.vue'),
