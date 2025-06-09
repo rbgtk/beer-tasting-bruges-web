@@ -30,29 +30,22 @@
 
 <script setup>
 import { ref } from 'vue'
-import api from '@/axios'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const email = ref('')
 const password = ref('')
 
+const authStore = useAuthStore()
+
 const error = ref(null)
 const router = useRouter()
 
-const handleLogin = async () => {
-  error.value = null
-  try {
-    await api.post('/api/auth/login', {
-      email: email.value,
-      password: password.value,
-    })
-    router.push('/dashboard')
-  } catch (loginError) {
-    if (loginError.response && loginError.response.status === 401) {
-      error.value = 'Invalid username or password.'
-    } else {
-      error.value = 'An unexpected error occurred.'
-    }
-  }
+async function handleLogin() {
+  await authStore.login({
+    email: email.value,
+    password: password.value,
+  })
+  router.push('/dashboard')
 }
 </script>

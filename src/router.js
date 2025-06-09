@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore.js'
 import GuestLayout from '@/layouts/GuestLayout.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import api from '@/axios'
@@ -53,7 +54,7 @@ const routes = [
   {
     path: '/dashboard',
     component: DashboardLayout,
-    meta: { requiresAdmin: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
     children: [
       {
         path: '',
@@ -134,7 +135,29 @@ const router = createRouter({
   routes: routes,
 })
 
+const authStore = useAuthStore()
+
 router.beforeEach(async (to, from, next) => {
+  // Fetch user data if it doesn't exist
+  if (!authStore.user && to.meta.requiresAuth) {
+    try {
+      await authStore.fetchUser()
+    } catch (error) {
+      console.error('Session invalid or expired, redirecting to login.')
+      return next('/login')
+    }
+  }
+
+  if (to.meta.requiresAdmin && !authStore.isAdmin) {
+    return next('/login')
+  } else if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    return next('/login')
+  } else {
+    next()
+  }
+})
+
+/*router.beforeEach(async (to, from, next) => {
   try {
     if (to.matched.some((record) => record.meta.requiresAdmin)) {
       const response = await api.get('/api/auth/role')
@@ -158,6 +181,6 @@ router.beforeEach(async (to, from, next) => {
   } catch (error) {
     next('/login')
   }
-})
+})*/
 
 export default router
