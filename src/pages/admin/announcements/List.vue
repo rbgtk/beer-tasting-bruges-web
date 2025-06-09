@@ -35,6 +35,6 @@ onMounted(async () => {
 
 async function handleDelete(announcement) {
   await deleteAnnouncement(announcement)
-  locations.value = await fetchAnnouncements()
+  announcements.value = await fetchAnnouncements()
 }
 </script>
