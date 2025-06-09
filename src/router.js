@@ -14,9 +14,19 @@ const routes = [
         component: () => import('@/pages/Home.vue'),
       },
       {
+        path: '',
+        name: 'Booking',
+        component: () => import('@/pages/Booking.vue'),
+      },
+      {
         path: 'about',
         name: 'About',
         component: () => import('@/pages/About.vue'),
+      },
+      {
+        path: 'contact',
+        name: 'Contact',
+        component: () => import('@/pages/Contact.vue'),
       },
       {
         path: 'legal',
