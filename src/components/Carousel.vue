@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   items: { type: Array, required: true },
@@ -70,9 +70,9 @@ function resumeAutoScroll() {
   startAutoScroll()
 }
 
-function showNavigation() {
+const showNavigation = computed(() => {
   return props.navigation && props.items.length > 1
-}
+})
 
 onMounted(() => {
   startAutoScroll()
