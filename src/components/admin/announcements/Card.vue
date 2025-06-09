@@ -2,18 +2,20 @@
   <div class="border rounded shadow-sm p-4 flex flex-col justify-between">
     <div>
       <h3 class="text-lg font-semibold mb-2">{{ announcement.title }}</h3>
+
       <p class="text-sm text-gray-600">
         <span class="font-semibold">Message:</span>
-        {{ announcement.message }}
       </p>
       <p class="text-sm text-gray-600" v-html="messageHtml"></p>
+
       <p class="text-sm text-gray-600">
         <span class="font-semibold">Active From:</span>
-        {{ announcement.dateFrom }}
+        {{ formatDate(announcement.dateFrom) }}
       </p>
+
       <p class="text-sm text-gray-600">
         <span class="font-semibold">Active To:</span>
-        {{ announcement.dateTo }}
+        {{ formatDate(announcement.dateTo) }}
       </p>
     </div>
     <div class="mt-4 flex gap-2">
@@ -47,4 +49,9 @@ const props = defineProps({
 const messageHtml = computed(() => {
   return md.render(props.announcement.message)
 })
+
+function formatDate(dateString) {
+  const date = new Date(dateString)
+  return date.toLocaleDateString()
+}
 </script>

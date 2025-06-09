@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-2xl font-bold mb-4">Edit Announcement</h1>
-    <LocationForm :announcement="announcement" :onSubmit="handleUpdate" submitLabel="Update Announcement" />
+    <AnnouncementForm :announcement="announcement" :onSubmit="handleUpdate" submitLabel="Update Announcement" />
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import AnnouncementForm from '@/components/admin/announcements/Form.vue'
 const route = useRoute()
 const router = useRouter()
 
-const location = ref(null)
+const announcement = ref(null)
 
 async function handleUpdate(data) {
   await updateAnnouncement({ id: route.params.id, ...data })
