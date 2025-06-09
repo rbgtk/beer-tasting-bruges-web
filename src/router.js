@@ -128,7 +128,6 @@ router.beforeEach(async (to, from, next) => {
   try {
     if (to.matched.some((record) => record.meta.requiresAdmin)) {
       const response = await api.get('/api/auth/role')
-      console.log('meta.requiresAdmin', response.data)
 
       if (response.data.role !== 'ADMIN') {
         next('/login')
@@ -137,7 +136,6 @@ router.beforeEach(async (to, from, next) => {
       }
     } else if (to.matched.some((record) => record.meta.requiresAuth)) {
       const response = await api.get('/api/auth/role')
-      console.log('meta.requiresAuth', response.data)
 
       if (!response.data.role) {
         next('/login')
