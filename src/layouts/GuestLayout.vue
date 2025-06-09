@@ -63,23 +63,10 @@ const activeAnnouncements = computed(() => {
 
 onMounted(async () => {
   announcements.value = await fetchAnnouncements()
-  /* announcements.value = [
-    { title: 'test1', content: '# header with __italic__ markdown', dateFrom: '2023-08-01', dateTo: '2025-08-31' },
-    { title: 'test2', content: '# header with **bold** markdown', dateFrom: '2023-08-01', dateTo: '2025-08-31' },
-    {
-      title: 'test3',
-      content: '# header with ~~strikethrough~~ markdown',
-      dateFrom: '2023-08-01',
-      dateTo: '2024-08-31',
-    },
-  ] */
 
   // Wait 3 seconds, then show modal if there are active announcements
   setTimeout(() => {
-    console.log('Timout over, active announcements: ', activeAnnouncements.value)
-
     if (activeAnnouncements.value.length > 0) {
-      console.log('Active announcements: ', activeAnnouncements.value.length)
       showModal.value = true
     }
   }, 3000)
@@ -89,7 +76,7 @@ onMounted(async () => {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease;
 }
 .fade-enter-from,
 .fade-leave-to {
