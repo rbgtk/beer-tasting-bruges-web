@@ -14,7 +14,7 @@ const routes = [
         component: () => import('@/pages/Home.vue'),
       },
       {
-        path: '',
+        path: 'booking',
         name: 'Booking',
         component: () => import('@/pages/Booking.vue'),
       },
@@ -22,6 +22,11 @@ const routes = [
         path: 'about',
         name: 'About',
         component: () => import('@/pages/About.vue'),
+      },
+      {
+        path: 'posts',
+        name: 'Posts',
+        component: () => import('@/pages/Posts.vue'),
       },
       {
         path: 'contact',
