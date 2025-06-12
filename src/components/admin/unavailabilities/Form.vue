@@ -50,7 +50,7 @@ const props = defineProps(['unavailability', 'onSubmit', 'submitLabel'])
 const locations = ref([])
 
 const form = ref({
-  daterange: [Date.now(), Date.now + 24 * 60 * 60 * 1000],
+  daterange: [new Date(), new Date(Date.now() + 24 * 60 * 60 * 1000)],
   reason: '',
   locationId: 0,
 })
