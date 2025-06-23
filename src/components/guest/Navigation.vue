@@ -16,12 +16,5 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useAuthStore } from '@/stores/authStore'
 import NavigationLinks from './NavigationLinks.vue'
-
-const authStore = useAuthStore()
-const isAdmin = computed(() => {
-  return authStore.userRole === 'ADMIN'
-})
 </script>

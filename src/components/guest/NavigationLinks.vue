@@ -27,8 +27,8 @@
     Contact
   </router-link>
   <router-link
-    exact-active-class="bg-gray-700"
-    class="px-3 py-2 rounded hover:bg-gray-600 transition-colors"
+    exact-active-class="bg-blue-600"
+    class="px-3 py-2 rounded bg-blue-600 hover:bg-blue-400 transition-colors"
     to="/booking"
   >
     Book Now!
@@ -42,3 +42,14 @@
     Dashboard
   </router-link>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
+
+const authStore = useAuthStore()
+
+const isAdmin = computed(() => {
+  return authStore.userRole === 'ADMIN'
+})
+</script>

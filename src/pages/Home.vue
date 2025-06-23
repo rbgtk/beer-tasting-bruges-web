@@ -43,7 +43,7 @@
           <p class="mb-2">
             Whether you’re coming solo or with friends, this is the perfect chance to explore new beers and meet fellow
             enthusiasts. Simply fill out the
-            <router-link to="/book-now" class="underline">booking form</router-link>
+            <router-link to="/booking" class="underline">booking form</router-link>
             to reserve your spot and get ready for a great time! The price for a beer tasting at Resto Mojo is
             <b>40 euros per person</b>
             , whereas the beer tasting at the Bauhaus is

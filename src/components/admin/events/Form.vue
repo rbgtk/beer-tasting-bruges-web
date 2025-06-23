@@ -57,6 +57,7 @@
             text-input
             auto-apply
             is-24
+            locale="nl-BE"
             format="yyyy-MM-dd HH:mm"
             class="w-full"
           />
