@@ -1,8 +1,11 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <h1 class="text-xl font-semibold">Beer Tasting Bruges</h1>
+    <header class="p-2 flex justify-between items-center">
+      <div class="flex mx-4 space-x-2">
+        <img src="/logo-150x150.png" alt="Logo" class="h-8 w-auto" />
+        <h1 class="text-xl font-semibold">Beer Tasting Bruges</h1>
+      </div>
       <Navigation />
     </header>
 
@@ -81,5 +84,9 @@ onMounted(async () => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+header {
+  background-color: #ffcc00;
 }
 </style>
