@@ -173,30 +173,4 @@ router.beforeEach(async (to, from, next) => {
   next()
 })
 
-/*router.beforeEach(async (to, from, next) => {
-  try {
-    if (to.matched.some((record) => record.meta.requiresAdmin)) {
-      const response = await api.get('/api/auth/role')
-
-      if (response.data.role !== 'ADMIN') {
-        next('/login')
-      } else {
-        next()
-      }
-    } else if (to.matched.some((record) => record.meta.requiresAuth)) {
-      const response = await api.get('/api/auth/role')
-
-      if (!response.data.role) {
-        next('/login')
-      } else {
-        next()
-      }
-    } else {
-      next()
-    }
-  } catch (error) {
-    next('/login')
-  }
-})*/
-
 export default router
