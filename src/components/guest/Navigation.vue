@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-gray-900 text-white px-4 py-3 flex items-center justify-between">
+  <nav class="px-4 py-3 flex items-center justify-between">
     <!-- Hamburger button on mobile -->
     <button @click="isOpen = !isOpen" class="md:hidden focus:outline-none">
       <!-- Hamburger icon (simple bars) -->
@@ -9,7 +9,7 @@
     </button>
 
     <!-- Nav links (hidden on mobile, flex on md+) -->
-    <div class="hidden md:flex space-x-4">
+    <div class="hidden md:flex space-x-4 font-semibold">
       <NavigationLinks />
     </div>
   </nav>

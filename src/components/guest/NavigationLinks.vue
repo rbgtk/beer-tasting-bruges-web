@@ -1,41 +1,41 @@
 <template>
-  <router-link exact-active-class="bg-gray-700" class="px-3 py-2 rounded hover:bg-gray-600 transition-colors" to="/">
+  <router-link exact-active-class="underline" class="px-3 py-2 rounded hover:bg-yellow-300 transition-colors" to="/">
     Home
   </router-link>
   <router-link
-    exact-active-class="bg-gray-700"
-    class="px-3 py-2 rounded hover:bg-gray-600 transition-colors"
+    exact-active-class="underline"
+    class="px-3 py-2 rounded hover:bg-yellow-300 transition-colors"
     to="/about"
   >
     About
   </router-link>
   <router-link
-    exact-active-class="bg-gray-700"
-    class="px-3 py-2 rounded hover:bg-gray-600 transition-colors"
+    exact-active-class="underline"
+    class="px-3 py-2 rounded hover:bg-yellow-300 transition-colors"
     to="/posts"
   >
     Posts
   </router-link>
-  <router-link exact-active-class="bg-gray-700" class="px-3 py-2 rounded hover:bg-gray-600 transition-colors" to="/faq">
+  <router-link exact-active-class="underline" class="px-3 py-2 rounded hover:bg-yellow-300 transition-colors" to="/faq">
     FAQ
   </router-link>
   <router-link
-    exact-active-class="bg-gray-700"
-    class="px-3 py-2 rounded hover:bg-gray-600 transition-colors"
+    exact-active-class="underline"
+    class="px-3 py-2 rounded hover:bg-yellow-300 transition-colors"
     to="/contact"
   >
     Contact
   </router-link>
   <router-link
     exact-active-class="bg-blue-600"
-    class="px-3 py-2 rounded bg-blue-600 hover:bg-blue-400 transition-colors"
+    class="px-3 py-2 rounded bg-blue-600 hover:bg-blue-400 transition-colors text-white"
     to="/booking"
   >
     Book Now!
   </router-link>
   <router-link
-    exact-active-class="bg-gray-700"
-    class="px-3 py-2 rounded hover:bg-gray-600 transition-colors"
+    exact-active-class="underline"
+    class="px-3 py-2 rounded hover:bg-yellow-300 transition-colors"
     to="/dashboard"
     v-if="isAdmin"
   >
