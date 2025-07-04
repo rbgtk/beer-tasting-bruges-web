@@ -1,25 +1,56 @@
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+
 import api from '@/axios'
 
-export async function createAnnouncement(announcement) {
-  const response = await api.post('/api/announcements', announcement)
-  return response.data
-}
+export const useAuthStore = defineStore('announcements', () => {
+  const announcements = ref([])
+  const isLoaded = ref(false)
 
-export async function fetchAnnouncements() {
-  const response = await api.get('/api/announcements')
-  return response.data
-}
+  async function create(data) {
+    const response = await api.post('/api/announcements', data)
 
-export async function fetchAnnouncement(id) {
-  const response = await api.get(`/api/announcements/${id}`)
-  return response.data
-}
+    if (!response.data.error) {
+      announcements.value.push(response.data)
+    }
+  }
 
-export async function updateAnnouncement(announcement) {
-  const response = await api.put(`/api/announcements/${announcement.id}`, announcement)
-  return response.data
-}
+  async function update(id, data) {
+    const index = announcements.value.findIndex((u) => u.id === id)
 
-export async function deleteAnnouncement(announcement) {
-  await api.delete(`/api/announcements/${announcement.id}`)
-}
+    if (index !== -1) {
+      const response = await api.put(`/api/announcements/${id}`, data)
+
+      if (!response.data.error) {
+        announcements.value[index] = response.data
+      }
+    }
+  }
+
+  async function fetchAll() {
+    if (!isLoaded.value) {
+      const response = await api.get('/api/announcements')
+
+      if (!response.data.error) {
+        announcements.value = response.data
+        isLoaded.value = true
+      }
+    }
+  }
+
+  async function deleteById(id) {
+    const response = await api.delete(`/api/announcements/${id}`)
+
+    if (!response.data.error) {
+      announcements.value = announcements.value.filter((u) => u.id !== id)
+    }
+  }
+
+  return {
+    announcements,
+    create,
+    update,
+    fetchAll,
+    deleteById,
+  }
+})

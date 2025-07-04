@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore.js'
-import GuestLayout from '@/layouts/GuestLayout.vue'
-import DashboardLayout from '@/layouts/DashboardLayout.vue'
+
+import AdminLayout from '@/layouts/AdminLayout.vue'
+import PublicLayout from '@/layouts/PublicLayout.vue'
 
 const routes = [
   {
     path: '/',
-    component: GuestLayout,
+    component: PublicLayout,
     children: [
       {
         path: '',
@@ -62,7 +63,7 @@ const routes = [
   },
   {
     path: '/dashboard',
-    component: DashboardLayout,
+    component: AdminLayout,
     meta: { requiresAuth: true, roles: ['ADMIN'] },
     children: [
       {

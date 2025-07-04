@@ -1,25 +1,56 @@
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+
 import api from '@/axios'
 
-export async function createUnavailability(unavailability) {
-  const response = await api.post('/api/unavailabilities', unavailability)
-  return response.data
-}
+export const useAuthStore = defineStore('unavailabilities', () => {
+  const unavailabilities = ref([])
+  const isLoaded = ref(false)
 
-export async function fetchUnavailabilities() {
-  const response = await api.get('/api/unavailabilities')
-  return response.data
-}
+  async function create(data) {
+    const response = await api.post('/api/unavailabilities', data)
 
-export async function fetchUnavailability(id) {
-  const response = await api.get(`/api/unavailabilities/${id}`)
-  return response.data
-}
+    if (!response.data.error) {
+      unavailabilities.value.push(response.data)
+    }
+  }
 
-export async function updateUnavailability(unavailability) {
-  const response = await api.put(`/api/unavailabilities/${unavailability.id}`, unavailability)
-  return response.data
-}
+  async function update(id, data) {
+    const index = unavailabilities.value.findIndex((u) => u.id === id)
 
-export async function deleteUnavailability(unavailability) {
-  await api.delete(`/api/unavailabilities/${unavailability.id}`)
-}
+    if (index !== -1) {
+      const response = await api.put(`/api/unavailabilities/${id}`, data)
+
+      if (!response.data.error) {
+        unavailabilities.value[index] = response.data
+      }
+    }
+  }
+
+  async function fetchAll() {
+    if (!isLoaded.value) {
+      const response = await api.get('/api/unavailabilities')
+
+      if (!response.data.error) {
+        unavailabilities.value = response.data
+        isLoaded.value = true
+      }
+    }
+  }
+
+  async function deleteById(id) {
+    const response = await api.delete(`/api/unavailabilities/${id}`)
+
+    if (!response.data.error) {
+      unavailabilities.value = unavailabilities.value.filter((u) => u.id !== id)
+    }
+  }
+
+  return {
+    unavailabilities,
+    create,
+    update,
+    fetchAll,
+    deleteById,
+  }
+})

@@ -1,25 +1,56 @@
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+
 import api from '@/axios'
 
-export async function createLocation(location) {
-  const response = await api.post('/api/locations', location)
-  return response.data
-}
+export const useAuthStore = defineStore('locations', () => {
+  const locations = ref([])
+  const isLoaded = ref(false)
 
-export async function fetchLocations() {
-  const response = await api.get('/api/locations')
-  return response.data
-}
+  async function create(data) {
+    const response = await api.post('/api/locations', data)
 
-export async function fetchLocation(id) {
-  const response = await api.get(`/api/locations/${id}`)
-  return response.data
-}
+    if (!response.data.error) {
+      locations.value.push(response.data)
+    }
+  }
 
-export async function updateLocation(location) {
-  const response = await api.put(`/api/locations/${location.id}`, location)
-  return response.data
-}
+  async function update(id, data) {
+    const index = locations.value.findIndex((u) => u.id === id)
 
-export async function deleteLocation(location) {
-  await api.delete(`/api/locations/${location.id}`)
-}
+    if (index !== -1) {
+      const response = await api.put(`/api/locations/${id}`, data)
+
+      if (!response.data.error) {
+        locations.value[index] = response.data
+      }
+    }
+  }
+
+  async function fetchAll() {
+    if (!isLoaded.value) {
+      const response = await api.get('/api/locations')
+
+      if (!response.data.error) {
+        locations.value = response.data
+        isLoaded.value = true
+      }
+    }
+  }
+
+  async function deleteById(id) {
+    const response = await api.delete(`/api/locations/${id}`)
+
+    if (!response.data.error) {
+      locations.value = locations.value.filter((u) => u.id !== id)
+    }
+  }
+
+  return {
+    locations,
+    create,
+    update,
+    fetchAll,
+    deleteById,
+  }
+})
