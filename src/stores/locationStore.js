@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 import api from '@/axios'
 
-export const useAuthStore = defineStore('locations', () => {
+export const useLocationStore = defineStore('locations', () => {
   const locations = ref([])
   const isLoaded = ref(false)
 
