@@ -21,18 +21,42 @@
 </template>
 
 <script setup lang="ts">
-import api from '@/axios'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+
+import { useAuthStore } from '@/stores/authStore.js'
+import { useAnnouncementStore } from '@/stores/announcementStore.js'
+import { useLocationStore } from '@/stores/locationStore'
+import { useServiceStore } from '@/stores/serviceStore.js'
+import { useUnavailabilityStore } from '@/stores/unavailabilityStore.js'
+import { useBookingStore } from '@/stores/bookingStore.js'
+
 import Navigation from '@/components/admin/Navigation.vue'
+
+const authStore = useAuthStore()
+const bookingStore = useBookingStore()
+const serviceStore = useServiceStore()
+const locationStore = useLocationStore()
+const announcementStore = useAnnouncementStore()
+const unavailabilityStore = useUnavailabilityStore()
 
 const router = useRouter()
 
-const handleLogout = async () => {
+async function handleLogout() {
   try {
-    await api.post('/api/auth/logout')
+    await authStore.logout()
     router.push('/login')
   } catch (error) {
     console.error('Logout failed:', error)
   }
 }
+
+onMounted(async () => {
+  await authStore.fetchUser()
+  await announcementStore.fetchAll()
+  await locationStore.fetchAll()
+  await serviceStore.fetchAll()
+  await unavailabilityStore.fetchAll()
+  await bookingStore.fetchAll()
+})
 </script>

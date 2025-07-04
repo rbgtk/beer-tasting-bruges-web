@@ -21,58 +21,34 @@
       <p>&copy; 2025 Beer Tasting Bruges. All rights reserved.</p>
     </footer>
   </div>
-
-  <!-- Announcement Modal -->
-  <transition name="fade">
-    <div v-if="showModal" class="fixed inset-0 flex items-center justify-center z-50">
-      <div class="absolute inset-0 bg-black opacity-80"></div>
-      <div class="relative bg-white rounded-lg shadow-lg w-full max-w-lg p-4">
-        <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-800" @click="showModal = false">
-          &times;
-        </button>
-
-        <Carousel
-          :items="activeAnnouncements"
-          :cardComponent="AnnouncementCard"
-          :autoScroll="true"
-          :autoScrollInterval="5000"
-          :navigation="true"
-        />
-      </div>
-    </div>
-  </transition>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { fetchAnnouncements } from '@/services/announcementService.js'
+import { onMounted } from 'vue'
 
-import Carousel from '@/components/Carousel.vue'
-import Navigation from '@/components/guest/Navigation.vue'
-import AnnouncementCard from '@/components/guest/AnnouncementCard.vue'
+import { useAuthStore } from '@/stores/authStore.js'
+import { useAnnouncementStore } from '@/stores/announcementStore.js'
+import { useLocationStore } from '@/stores/locationStore'
+import { useServiceStore } from '@/stores/serviceStore.js'
+import { useUnavailabilityStore } from '@/stores/unavailabilityStore.js'
+import { useBookingStore } from '@/stores/bookingStore.js'
 
-const announcements = ref([])
-const showModal = ref(false)
+import Navigation from '@/components/public/Navigation.vue'
 
-// Active announcements filtered by today's date
-const activeAnnouncements = computed(() => {
-  const today = new Date()
-  return announcements.value.filter((a) => {
-    const from = new Date(a.dateFrom)
-    const to = new Date(a.dateTo)
-    return from <= today && to >= today
-  })
-})
+const authStore = useAuthStore()
+const bookingStore = useBookingStore()
+const serviceStore = useServiceStore()
+const locationStore = useLocationStore()
+const announcementStore = useAnnouncementStore()
+const unavailabilityStore = useUnavailabilityStore()
 
 onMounted(async () => {
-  announcements.value = await fetchAnnouncements()
-
-  // Wait 3 seconds, then show modal if there are active announcements
-  setTimeout(() => {
-    if (activeAnnouncements.value.length > 0) {
-      showModal.value = true
-    }
-  }, 3000)
+  await authStore.fetchUser()
+  await announcementStore.fetchAll()
+  await locationStore.fetchAll()
+  await serviceStore.fetchAll()
+  await unavailabilityStore.fetchAll()
+  await bookingStore.fetchAll()
 })
 </script>
 
