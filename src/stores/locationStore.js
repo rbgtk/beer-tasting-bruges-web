@@ -4,25 +4,25 @@ import { ref } from 'vue'
 import api from '@/axios'
 
 export const useLocationStore = defineStore('locations', () => {
-  const locations = ref([])
+  const items = ref([])
   const isLoaded = ref(false)
 
   async function create(data) {
     const response = await api.post('/api/locations', data)
 
     if (!response.data.error) {
-      locations.value.push(response.data)
+      items.value.push(response.data)
     }
   }
 
   async function update(id, data) {
-    const index = locations.value.findIndex((u) => u.id === id)
+    const index = items.value.findIndex((i) => i.id === id)
 
     if (index !== -1) {
       const response = await api.put(`/api/locations/${id}`, data)
 
       if (!response.data.error) {
-        locations.value[index] = response.data
+        items.value[index] = response.data
       }
     }
   }
@@ -32,7 +32,7 @@ export const useLocationStore = defineStore('locations', () => {
       const response = await api.get('/api/locations')
 
       if (!response.data.error) {
-        locations.value = response.data
+        items.value = response.data
         isLoaded.value = true
       }
     }
@@ -42,12 +42,12 @@ export const useLocationStore = defineStore('locations', () => {
     const response = await api.delete(`/api/locations/${id}`)
 
     if (!response.data.error) {
-      locations.value = locations.value.filter((u) => u.id !== id)
+      items.value = items.value.filter((i) => i.id !== id)
     }
   }
 
   return {
-    locations,
+    items,
     create,
     update,
     fetchAll,

@@ -6,8 +6,9 @@ import api from '@/axios'
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
 
-  const isAuthenticated = computed(() => !!user.value)
+  const isAuthenticated = computed(() => user.value)
   const userRole = computed(() => user.value?.role || null)
+  const isAdmin = computed(() => user.value?.role === 'ADMIN')
 
   async function login(credentials) {
     const response = await api.post('/api/auth/login', credentials)
@@ -31,5 +32,6 @@ export const useAuthStore = defineStore('auth', () => {
     login,
     logout,
     fetchUser,
+    isAdmin,
   }
 })

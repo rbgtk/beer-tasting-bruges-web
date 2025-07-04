@@ -4,25 +4,25 @@ import { ref } from 'vue'
 import api from '@/axios'
 
 export const useAnnouncementStore = defineStore('announcements', () => {
-  const announcements = ref([])
+  const items = ref([])
   const isLoaded = ref(false)
 
   async function create(data) {
     const response = await api.post('/api/announcements', data)
 
     if (!response.data.error) {
-      announcements.value.push(response.data)
+      items.value.push(response.data)
     }
   }
 
   async function update(id, data) {
-    const index = announcements.value.findIndex((u) => u.id === id)
+    const index = items.value.findIndex((i) => i.id === id)
 
     if (index !== -1) {
       const response = await api.put(`/api/announcements/${id}`, data)
 
       if (!response.data.error) {
-        announcements.value[index] = response.data
+        items.value[index] = response.data
       }
     }
   }
@@ -32,7 +32,7 @@ export const useAnnouncementStore = defineStore('announcements', () => {
       const response = await api.get('/api/announcements')
 
       if (!response.data.error) {
-        announcements.value = response.data
+        items.value = response.data
         isLoaded.value = true
       }
     }
@@ -42,12 +42,12 @@ export const useAnnouncementStore = defineStore('announcements', () => {
     const response = await api.delete(`/api/announcements/${id}`)
 
     if (!response.data.error) {
-      announcements.value = announcements.value.filter((u) => u.id !== id)
+      items.value = items.value.filter((i) => i.id !== id)
     }
   }
 
   return {
-    announcements,
+    items,
     create,
     update,
     fetchAll,

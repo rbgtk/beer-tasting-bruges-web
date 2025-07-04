@@ -4,25 +4,25 @@ import { ref } from 'vue'
 import api from '@/axios'
 
 export const useUnavailabilityStore = defineStore('unavailabilities', () => {
-  const unavailabilities = ref([])
+  const items = ref([])
   const isLoaded = ref(false)
 
   async function create(data) {
     const response = await api.post('/api/unavailabilities', data)
 
     if (!response.data.error) {
-      unavailabilities.value.push(response.data)
+      items.value.push(response.data)
     }
   }
 
   async function update(id, data) {
-    const index = unavailabilities.value.findIndex((u) => u.id === id)
+    const index = items.value.findIndex((i) => i.id === id)
 
     if (index !== -1) {
       const response = await api.put(`/api/unavailabilities/${id}`, data)
 
       if (!response.data.error) {
-        unavailabilities.value[index] = response.data
+        items.value[index] = response.data
       }
     }
   }
@@ -32,7 +32,7 @@ export const useUnavailabilityStore = defineStore('unavailabilities', () => {
       const response = await api.get('/api/unavailabilities')
 
       if (!response.data.error) {
-        unavailabilities.value = response.data
+        items.value = response.data
         isLoaded.value = true
       }
     }
@@ -42,12 +42,12 @@ export const useUnavailabilityStore = defineStore('unavailabilities', () => {
     const response = await api.delete(`/api/unavailabilities/${id}`)
 
     if (!response.data.error) {
-      unavailabilities.value = unavailabilities.value.filter((u) => u.id !== id)
+      items.value = items.value.filter((i) => i.id !== id)
     }
   }
 
   return {
-    unavailabilities,
+    items,
     create,
     update,
     fetchAll,

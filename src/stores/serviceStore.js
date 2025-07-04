@@ -4,25 +4,25 @@ import { ref } from 'vue'
 import api from '@/axios'
 
 export const useServiceStore = defineStore('services', () => {
-  const services = ref([])
+  const items = ref([])
   const isLoaded = ref(false)
 
   async function create(data) {
     const response = await api.post('/api/services', data)
 
     if (!response.data.error) {
-      services.value.push(response.data)
+      items.value.push(response.data)
     }
   }
 
   async function update(id, data) {
-    const index = services.value.findIndex((u) => u.id === id)
+    const index = items.value.findIndex((i) => i.id === id)
 
     if (index !== -1) {
       const response = await api.put(`/api/services/${id}`, data)
 
       if (!response.data.error) {
-        services.value[index] = response.data
+        items.value[index] = response.data
       }
     }
   }
@@ -32,7 +32,7 @@ export const useServiceStore = defineStore('services', () => {
       const response = await api.get('/api/services')
 
       if (!response.data.error) {
-        services.value = response.data
+        items.value = response.data
         isLoaded.value = true
       }
     }
@@ -42,12 +42,12 @@ export const useServiceStore = defineStore('services', () => {
     const response = await api.delete(`/api/services/${id}`)
 
     if (!response.data.error) {
-      services.value = services.value.filter((u) => u.id !== id)
+      items.value = items.value.filter((i) => i.id !== id)
     }
   }
 
   return {
-    services,
+    items,
     create,
     update,
     fetchAll,
