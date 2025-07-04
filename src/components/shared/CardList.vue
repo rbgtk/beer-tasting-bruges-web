@@ -5,7 +5,7 @@
       :is="card"
       :key="item.id"
       :item="item"
-      :edit="edit"
+      :edit="`${edit}/${item.id}`"
       class="flex-1 min-w-[15%] max-w-[20%]"
       @delete="handleDelete"
     />
@@ -13,13 +13,13 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   store: { type: Object, required: true },
   card: { type: Object, required: true },
   edit: { type: String, required: true },
 })
 
 async function handleDelete(item) {
-  await store.deleteById(item.id)
+  await props.store.deleteById(item.id)
 }
 </script>
