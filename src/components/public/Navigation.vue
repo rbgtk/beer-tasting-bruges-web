@@ -10,11 +10,15 @@
 
     <!-- Nav links (hidden on mobile, flex on md+) -->
     <div class="hidden md:flex space-x-4 font-semibold">
-      <NavigationLinks />
+      <NavigationLink label="Home" link="/" />
+      <NavigationLink label="About" link="/about" />
+      <NavigationLink label="Articles" link="/articles" />
+      <NavigationLink label="Contact" link="/contact" />
+      <NavigationLink label="Book Now!" link="/booking" color="blue" />
     </div>
   </nav>
 </template>
 
 <script setup>
-import NavigationLinks from './NavigationLinks.vue'
+import NavigationLink from './NavigationLink.vue'
 </script>
