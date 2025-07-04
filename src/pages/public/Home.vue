@@ -95,8 +95,8 @@
         </div>
 
         <Carousel
-          v-if="locations.length > 0"
-          :items="locations"
+          v-if="locationStore.items.length > 0"
+          :items="locationStore.items"
           :cardComponent="LocationCard"
           :navigation="false"
           :autoScroll="true"
@@ -111,24 +111,65 @@
     <h2 class="text-2xl font-bold mb-4">What Our Customers Say</h2>
     <div id="trustindex-widget" data-widget-id="785f04447a0f7010b046ba5fd6e"></div>
   </div>
+
+  <!-- Announcement Modal -->
+  <transition name="fade">
+    <div v-if="showModal" class="fixed inset-0 flex items-center justify-center z-50">
+      <div class="absolute inset-0 bg-black opacity-80"></div>
+      <div class="relative bg-white rounded-lg shadow-lg w-full max-w-lg p-4">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-800" @click="showModal = false">
+          &times;
+        </button>
+
+        <Carousel
+          :items="activeAnnouncements"
+          :cardComponent="AnnouncementCard"
+          :autoScroll="true"
+          :autoScrollInterval="5000"
+          :navigation="true"
+        />
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { fetchLocations } from '@/services/locationService'
-import Carousel from '@/components/Carousel.vue'
-import LocationCard from '@/components/guest/LocationCard.vue'
+import { computed, onMounted, ref } from 'vue'
+import { useLocationStore } from '@/stores/locationStore.js'
+import { useAnnouncementStore } from '@/stores/announcementStore.js'
 
-const locations = ref([])
+import Carousel from '@/components/shared/Carousel.vue'
+import LocationCard from '@/components/public/LocationCard.vue'
+import AnnouncementCard from '@/components/public/AnnouncementCard.vue'
+
+const showModal = ref(false)
+
+const locationStore = useLocationStore()
+const announcementStore = useAnnouncementStore()
+
+// Active announcements filtered by today's date
+const activeAnnouncements = computed(() => {
+  const today = new Date()
+  return announcementStore.items.filter((a) => {
+    const from = new Date(a.dateFrom)
+    const to = new Date(a.dateTo)
+    return from <= today && to >= today
+  })
+})
 
 onMounted(async () => {
-  locations.value = await fetchLocations()
-
   const div = document.getElementById('trustindex-widget')
   let script = document.createElement('script')
   script.src = 'https://cdn.trustindex.io/loader.js?785f04447a0f7010b046ba5fd6e'
   script.defer = true
   script.async = true
   div.appendChild(script)
+
+  // Wait 3 seconds, then show modal if there are active announcements
+  setTimeout(() => {
+    if (activeAnnouncements.value.length > 0) {
+      showModal.value = true
+    }
+  }, 3000)
 })
 </script>
