@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { login as apiLogin, logout as apiLogout, fetchUser as apiFetchUser } from '@/services/authService.js'
+
+import api from '@/axios'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
@@ -9,18 +10,18 @@ export const useAuthStore = defineStore('auth', () => {
   const userRole = computed(() => user.value?.role || null)
 
   async function login(credentials) {
-    const userData = await apiLogin(credentials)
-    user.value = userData
+    const response = await api.post('/api/auth/login', credentials)
+    user.value = response.data
   }
 
   async function logout() {
-    await apiLogout()
+    await api.post('/api/auth/logout')
     user.value = null
   }
 
   async function fetchUser() {
-    const userData = await apiFetchUser()
-    user.value = userData
+    const response = await api.get('/api/auth/me')
+    user.value = response.data
   }
 
   return {
