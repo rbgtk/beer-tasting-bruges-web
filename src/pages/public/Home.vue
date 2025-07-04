@@ -52,10 +52,7 @@
           </p>
         </div>
       </section>
-    </div>
 
-    <!-- Column 2 -->
-    <div>
       <section class="p-4 mb-8">
         <h1 class="text-2xl font-bold mb-4">Tailor your experience</h1>
 
@@ -71,6 +68,18 @@
             and depends on your specific request.
           </p>
         </div>
+      </section>
+    </div>
+
+    <!-- Column 2 -->
+    <div>
+      <section class="p-4 mb-8 flex items-center justify-center">
+        <img
+          src="/beer-pouring-2048x1153.jpg"
+          title="Beer pouring"
+          alt="A golden beer being poured into a glass"
+          class="object-cover object-center rounded-lg h-96"
+        />
       </section>
 
       <section class="p-4 mb-8">
