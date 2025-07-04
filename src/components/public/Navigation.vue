@@ -14,11 +14,15 @@
       <NavigationLink label="About" link="/about" />
       <NavigationLink label="Articles" link="/articles" />
       <NavigationLink label="Contact" link="/contact" />
-      <NavigationLink label="Book Now!" link="/booking" color="blue" />
+      <NavigationLink label="Book Now!" link="/booking" />
+      <NavigationLink label="Dashboard" link="/dashboard/bookings" v-if="authStore.isAdmin" />
     </div>
   </nav>
 </template>
 
 <script setup>
-import NavigationLink from './NavigationLink.vue'
+import { useAuthStore } from '@/stores/authStore.js'
+import NavigationLink from '@/components/public/NavigationLink.vue'
+
+const authStore = useAuthStore()
 </script>
